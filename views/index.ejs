@@ -10,6 +10,15 @@
 	</head>
 	
 	<body ng-app="flapperNews">
+		<nav class="navbar navbar-default pull-right" ng-controller="NavCtrl as navc">
+			<ul class="nav navbar-nav">
+				<li ng-show="navc.isLoggedIn()"><a>{{navc.currentUser()}}</a></li>
+				<li ng-show="navc.isLoggedIn()"><a href="" ng-click="navc.logOut()">Log Out</a></li>
+				<li ng-hide="navc.isLoggedIn()"><a href="/#/login">Log In</a></li>
+				<li ng-hide="navc.isLoggedIn()"><a href="/#/register">Register</a></li>
+			</ul>
+		</nav>
+
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<ui-view></ui-view>
@@ -77,5 +86,52 @@
 				<button type="submit" class="btn btn-primary">Post</button>
 			</form>
 		</script>
+
+		<script type="text/ng-template" id="/register.html">
+			<div class="page-header">
+				<h1>Flapper News</h1>
+			</div>
+
+			<div ng-show="reg.error" class="alert alert-danger row">
+				<span>{{ reg.error.message }}</span>
+			</div>
+
+			<form ng-submit="reg.register()" style="margin-top:30px">
+				<h3>Register</h3>
+
+				<div class="form-group">
+					<input type="text" placeholder="Username" ng-model="reg.user.username"/>
+				</div>
+
+				<div class="form-group">
+					<input type="password" placeholder="Password" ng-model="reg.user.password"/>
+				</div>
+				<button type="submit" class="btn btn-primary">Register</button>
+			</form>
+		</script>
+
+		<script type="text/ng-template" id="/login.html">
+			<div class="page-header">
+				<h1>Flapper News</h1>
+			</div>
+
+			<div ng-show="log.error" class="alert alert-danger row">
+				<span>{{ log.error.message }}</span>
+			</div>
+
+			<form ng-submit="log.logIn()" style="margin-top:30px">
+				<h3>Log In</h3>
+
+				<div class="form-group">
+					<input type="text" placeholder="Username" ng-model="log.user.username"/>
+				</div>
+
+				<div class="form-group">
+					<input type="password" placeholder="Password" ng-model="log.user.password"/>
+				</div>
+				<button type="submit" class="btn btn-primary">Log In</button>
+			</form>
+		</script>
+
 	</body>
 </html>
